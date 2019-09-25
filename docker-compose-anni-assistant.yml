@@ -1,0 +1,39 @@
+version: '3'
+services:
+  zigbee2mqtt:
+    container_name: zigbee2mqtt 
+    image: koenkk/zigbee2mqtt
+    restart: always
+    volumes:
+      - ~/anni/zigbee2mqtt:/app/data/
+    devices:
+      - /dev/ttyUSB_cc2531:/dev/ttyACM0
+    networks:
+      - anni
+  mqtt:
+    container_name: mosquitto
+    image: eclipse-mosquitto
+    restart: always
+    volumes:
+      - ~/anni/mosquito/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    ports:
+      - 1883:1883
+      - 9001:9001 
+    networks:
+      - anni
+  homeassistant:
+    container_name: home-assistant
+    image: homeassistant/home-assistant:stable
+    restart: always
+    volumes:
+      - ~/anni/home-assistant:/config
+    ports:
+      - 8123:8123
+    environment:
+      - TZ=Europe/Berlin
+    networks:
+      - anni
+
+networks:
+  anni: 
+    driver: bridge

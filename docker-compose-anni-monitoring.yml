@@ -1,0 +1,39 @@
+version: '3'
+services:
+  influxdb:
+    container_name: influxdb
+    image: influxdb:latest
+    restart: always
+    volumes:
+      - ~/anni/influxdb:/var/lib/influxdb
+    ports:
+      - 8086:8086
+    networks:
+      - anni
+
+  telegraf:
+    container_name: telegraf
+    image: telegraf:latest
+    volumes:
+      - ~/anni/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    links:
+      - influxdb
+    networks: 
+      - anni
+ 
+  grafana:
+    container_name: grafana
+    image: grafana/grafana
+    restart: always
+    volumes:
+      - ~/anni/grafana:/var/lib/grafana
+    ports:
+      - 3001:3000
+    links:
+      - influxdb
+    networks:
+      - anni
+
+networks:          
+  anni: 
+    driver: bridge
