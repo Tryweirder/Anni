@@ -8,18 +8,12 @@ services:
       - ~/anni/influxdb:/var/lib/influxdb
     ports:
       - 8086:8086
-    networks:
-      - anni
 
-  telegraf:
-    container_name: telegraf
-    image: telegraf:latest
-    volumes:
-      - ~/anni/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
-    links:
-      - influxdb
-    networks: 
-      - anni
+#telegraf:
+    #container_name: telegraf
+    #image: telegraf:latest
+    #volumes:
+    # - ~/anni/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
  
   grafana:
     container_name: grafana
@@ -28,12 +22,9 @@ services:
     volumes:
       - ~/anni/grafana:/var/lib/grafana
     ports:
-      - 3001:3000
-    links:
-      - influxdb
-    networks:
-      - anni
+      - 3000:3000
 
-networks:          
-  anni: 
-    driver: bridge
+networks:
+  default:
+    external:
+      name: anni

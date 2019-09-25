@@ -35,5 +35,6 @@ services:
       - anni
 
 networks:
-  anni: 
-    driver: bridge
+  default:
+    external:
+      name: anni
