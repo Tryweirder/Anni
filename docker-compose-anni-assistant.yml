@@ -15,9 +15,12 @@ services:
     image: eclipse-mosquitto
     restart: always
     volumes:
-      - ~/anni/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ~/anni/mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ~/anni/mosquitto/data:/mosquitto/data/
+      - ~/anni/mosquitto/log:/mosquitto/log/
     ports:
       - 1883:1883
+      - 9001:9001
     environment:
       - TZ=Europe/Berlin
   homeassistant:
