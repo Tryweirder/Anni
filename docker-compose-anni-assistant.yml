@@ -7,20 +7,19 @@ services:
     volumes:
       - ~/anni/zigbee2mqtt:/app/data/
     devices:
-      - /dev/ttyUSB_cc2531:/dev/ttyACM0
-    networks:
-      - anni
+      - /dev/ttyACM0:/dev/ttyACM0
+    environment:
+      - TZ=Europe/Berlin
   mqtt:
     container_name: mosquitto
     image: eclipse-mosquitto
     restart: always
     volumes:
-      - ~/anni/mosquito/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ~/anni/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
     ports:
       - 1883:1883
-      - 9001:9001 
-    networks:
-      - anni
+    environment:
+      - TZ=Europe/Berlin
   homeassistant:
     container_name: home-assistant
     image: homeassistant/home-assistant:stable
@@ -31,8 +30,6 @@ services:
       - 8123:8123
     environment:
       - TZ=Europe/Berlin
-    networks:
-      - anni
 
 networks:
   default:
