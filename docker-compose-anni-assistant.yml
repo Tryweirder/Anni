@@ -15,7 +15,7 @@ services:
     image: eclipse-mosquitto
     restart: always
     volumes:
-      - ~/anni/mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ~/anni/mosquitto/config:/mosquitto/config/
       - ~/anni/mosquitto/data:/mosquitto/data/
       - ~/anni/mosquitto/log:/mosquitto/log/
     ports:
