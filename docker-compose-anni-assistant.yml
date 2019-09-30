@@ -5,7 +5,7 @@ services:
     image: koenkk/zigbee2mqtt
     restart: always
     volumes:
-      - ~/anni/zigbee2mqtt:/app/data/
+      - /home/fernando/anni/zigbee2mqtt:/app/data/
     devices:
       - /dev/ttyACM0:/dev/ttyACM0
     environment:
@@ -15,9 +15,9 @@ services:
     image: eclipse-mosquitto
     restart: always
     volumes:
-      - ~/anni/mosquitto/config:/mosquitto/config/
-      - ~/anni/mosquitto/data:/mosquitto/data/
-      - ~/anni/mosquitto/log:/mosquitto/log/
+      - /home/fernando/anni/mosquitto/config:/mosquitto/config/
+      - /home/fernando/anni/mosquitto/data:/mosquitto/data/
+      - /home/fernando/anni/mosquitto/log:/mosquitto/log/
     ports:
       - 1883:1883
       - 9001:9001
@@ -28,7 +28,7 @@ services:
     image: homeassistant/home-assistant:stable
     restart: always
     volumes:
-      - ~/anni/home-assistant:/config
+      - /home/fernando/anni/home-assistant:/config
     ports:
       - 8123:8123
     environment:
